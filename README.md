@@ -14,4 +14,6 @@ rag_engine.py
 
 App.py
 
-modifier les PATHS dans 1 extraire pdf.py
+NB: modifier les PATHS necessaires!
+
+
