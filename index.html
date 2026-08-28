@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gender Data Lab Sénégal — Assistant ANSD</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ================= EN-TETE ================= -->
+  <header class="top-bar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 19V10M11 19V5M18 19V13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <div class="brand-text">
+        <span class="brand-eyebrow">Gender Data Lab · Sénégal</span>
+        <h1>Assistant de recherche ANSD</h1>
+      </div>
+    </div>
+    <button type="button" class="btn-ghost" id="btn-reset">↻ Nouvelle conversation</button>
+  </header>
+
+  <!-- ================= TICKER ================= -->
+  <div class="ticker">
+    <span class="ticker-label">Essayez</span>
+    <button type="button" class="ticker-question" id="ticker-question"></button>
+  </div>
+
+  <!-- ================= LAYOUT PRINCIPAL ================= -->
+  <div class="layout">
+
+    <!-- ---------- SIDEBAR ---------- -->
+    <aside class="sidebar">
+      <h2>Sources consultées</h2>
+      <p class="sidebar-note">L'assistant priorise toujours les rapports ANSD ; les sources web servent de complément.</p>
+
+      <div class="source-group">
+        <h3><span class="dot dot-pdf"></span> Rapports ANSD</h3>
+        <ul class="source-list" id="liste-sources-pdf"></ul>
+      </div>
+
+      <div class="source-group">
+        <h3><span class="dot dot-web"></span> Sources web</h3>
+        <ul class="source-list" id="liste-sources-web"></ul>
+      </div>
+
+      <p class="sidebar-caveat">
+        Cet assistant peut se tromper. Vérifiez les chiffres importants sur
+        <a href="https://www.ansd.sn" target="_blank" rel="noopener">ansd.sn</a>.
+      </p>
+    </aside>
+
+    <!-- ---------- ZONE DE CHAT ---------- -->
+    <div class="chat-area">
+      <div class="thread" id="thread">
+        <div class="msg msg-assistant">
+          <div class="msg-avatar">AD</div>
+          <div class="msg-body">
+            <p>Bonjour. Je réponds à vos questions à partir des rapports statistiques de l'ANSD sur le genre au Sénégal, complétés au besoin par quelques sources web de référence.</p>
+            <p>Posez une question pour commencer — par exemple sur l'emploi, les violences basées sur le genre, ou l'accès à l'éducation.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="thinking" id="thinking" hidden>
+        <div class="thinking-dots"><span></span><span></span><span></span></div>
+        <span class="thinking-label">Consultation des rapports...</span>
+      </div>
+
+      <form class="composer" id="composer">
+        <textarea id="champ-question" rows="1" placeholder="Posez une question" required></textarea>
+        <button type="submit" class="btn-send" id="btn-send" aria-label="Envoyer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12L20 4L13 20L11 13L4 12Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </form>
+      <p class="composer-hint">Entrée pour envoyer · Maj+Entrée pour une nouvelle ligne</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= GABARITS (templates JS) ================= -->
+<template id="gabarit-message-assistant">
+  <div class="msg msg-assistant">
+    <div class="msg-avatar">AD</div>
+    <div class="msg-body">
+      <p class="msg-texte"></p>
+      <div class="msg-sources"></div>
+    </div>
+  </div>
+</template>
+
+<template id="gabarit-source">
+  <a class="source-tag" href="#" target="_blank" rel="noopener">
+    <span class="dot"></span>
+    <span class="source-tag-titre"></span>
+  </a>
+</template>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
