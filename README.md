@@ -1,6 +1,6 @@
 # Code_Assistant_Conversationnel_ANSD
 
-ordre:
+Ordre:
 
 config_sources.py
 
@@ -14,6 +14,6 @@ rag_engine.py
 
 App.py
 
-NB: modifier les PATHS necessaires!
+NB: modifier les PATHS necessaires
 
 
