@@ -149,63 +149,6 @@ Pour chaque PDF listé dans config_sources.py le code :
     savoir d'ou vient chaque passage), et sauvegarde le resultat complet
     dans un fichier .txt, dans le dossier "textes/" dans mon folder.
 
-=====================================================================================
-LES LIBRAIRIES UTILISEES 
-=====================================================================================
-
-- fitz (le nom du module Python pour PyMuPDF)
-    D'OU CA VIENT : PyMuPDF est une librairie externe (pip install pymupdf),
-    qui s'appelle "fitz" une fois importee en Python -- nom historique,
-    herite d'un ancien projet appele MuPDF sur lequel PyMuPDF est base.
-    CE QUE CA FAIT : elle sait OUVRIR un fichier PDF et le manipuler
-    programmatiquement -- lire le texte "natif" de chaque page (le texte
-    qui est stocke tel quel dans le fichier, celui que tu pourrais
-    selectionner a la souris si tu ouvrais le PDF normalement), recuperer
-    les images, la mise en page, etc. C'est rapide car elle lit
-    directement les donnees du fichier, sans "regarder" visuellement la
-    page comme le ferait un humain.
-
-- pdfplumber
-    D'OU CA VIENT : librairie externe (pip install pdfplumber).
-    CE QUE CA FAIT : contrairement a fitz (qui lit le texte "en vrac",
-    dans l'ordre ou il est encode), pdfplumber analyse la POSITION
-    GEOMETRIQUE de chaque element sur la page (coordonnees x/y, traits,
-    alignements). Ca lui permet de detecter qu'un groupe de textes forme
-    en realite un TABLEAU (avec des vraies lignes et colonnes), et de le
-    renvoyer sous forme structuree (une liste de lignes, chaque ligne
-    etant une liste de cellules) -- plutot que du texte en vrac ou les
-    colonnes seraient melangees.
-
-- pytesseract
-    D'OU CA VIENT : librairie externe (pip install pytesseract). C'est
-    juste un "pont" Python vers un vrai programme externe appele
-    Tesseract (pas ecrit en Python, un logiciel a part, developpe a
-    l'origine par HP puis repris par Google) qui doit etre installe
-    SEPAREMENT sur la machine (pas via pip).
-    CE QUE CA FAIT : c'est le moteur d'OCR (reconnaissance optique de
-    caracteres) -- il prend une IMAGE (pas du texte) et essaie de
-    reconnaitre visuellement les lettres/chiffres qu'elle contient, comme
-    le ferait un humain qui lit une photo, puis renvoie le texte
-    reconnu. pytesseract se contente d'appeler Tesseract en arriere-plan
-    et de recuperer son resultat sous forme de texte Python.
-
-- pdf2image (fonction convert_from_path)
-    D'OU CA VIENT : librairie externe (pip install pdf2image). Elle
-    utilise elle-meme un programme externe appele Poppler (a installer
-    separement, comme Tesseract).
-    CE QUE CA FAIT : transforme une page de PDF en IMAGE (comme une
-    capture d'ecran de cette page)  necessaire car pytesseract ne sait
-    lire que des images, jamais un fichier PDF directement.
-
-- img2table (classes PDF et TesseractOCR)
-    D'OU CA VIENT : librairie externe (pip install img2table).
-    CE QUE CA FAIT : concue specifiquement pour detecter des TABLEAUX
-    directement sur une IMAGE (contrairement a pdfplumber qui a besoin de
-    texte natif). Elle repere d'abord la grille du tableau (ou sont les
-    lignes et colonnes sur l'image), PUIS applique l'OCR (via Tesseract,
-    comme pytesseract) a l'interieur de chaque cellule detectee -- ce qui
-    garde la structure ligne/colonne intacte, plutot que de lire tout le
-    tableau comme du texte en vrac.
 
 
 
