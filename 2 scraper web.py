@@ -1,11 +1,11 @@
 """
 
  
-`requests` + `BeautifulSoup` (methode statique) ne recuperent jamais le
+`requests` + `BeautifulSoup` pas suffisant pour recuperer le
 contenu injecte par JavaScript, du coup des sites comme ONU
-Femmes qui sont des dashbords dynamiques
+Femmes qui sont des dashbords dynamiques n'o quasi pas de contenu
  
-Cette version ajoute un autre essai automatique : si le scraping statique
+Cette version ajoute un autre essai automatique. si le scraping statique
 recupere moins de 300 caracteres, on relance avec `Playwright`, un vrai
 navigateur (Chromium) execute en arriere-plan, il execute le JavaScript de
 la page avant de recuperer le HTML final.
@@ -242,11 +242,11 @@ def scraper_page_statique(lien):
                 lien, timeout=15, headers={"User-Agent": "Mozilla/5.0"}, verify=False
             )
             reponse.raise_for_status()
-            print("    ⚠️  Contenu récupéré SANS vérification SSL -- à utiliser avec prudence "
-                  "(vérifie que le lien est bien le site officiel).")
+          
+             
             return nettoyer_html(reponse.text)
         except Exception as erreur:
-            print(f"    -> ÉCHEC (même sans vérification SSL) : {erreur}")
+            print(f"   probleme : {erreur}")
             return ""
  
     except Exception as erreur:
@@ -365,7 +365,7 @@ for source in LIENS_UTILES:
         f.write(f"[SOURCE: {nom}]\n[LIEN: {lien}]\n\n{texte}")
  
     if nb_caracteres >= SEUIL_CONTENU_SUFFISANT:
-        statut = f"C OK ({methode_utilisee})"
+        statut = f"C Ok ({methode_utilisee})"
     else:
         statut = "ÉCHEC "
         print(f"   probleme : même le navigateur headless n'a récupéré que {nb_caracteres} caractères.")
@@ -376,11 +376,9 @@ for source in LIENS_UTILES:
     print(f"  -> {nb_caracteres} caractères récupérés -> {chemin} [{statut}]\n")
     resume_final.append((nom, nb_caracteres, statut))
  
-print("=" * 70)
-print("RÉCAPITULATIF")
-print("=" * 70)
+
 for nom, nb_caracteres, statut in resume_final:
-    print(f"  {statut:20s} {nb_caracteres:6d} caractères -- {nom}")
+    print(f"  {statut:20s} {nb_caracteres:6d} caractères  {nom}")
  
 print("\nScraping terminé.")
  
